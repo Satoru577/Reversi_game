@@ -3,7 +3,7 @@ import sys
 import time
 import os 
 from board import board
-from player import player
+from player import players
 
 # 色の定義
 WHITE = (255, 255, 255)
@@ -16,12 +16,10 @@ GRAY =(220, 220, 220)
 SCEEN_HEIGHT = 600
 SCREEN_HEIGHT = 800
 
-os.environ['SDL_VIDEODRIVER'] = 'x11'
 pygame.init()
 
 game_board = board()
-player1 = player(1)
-player2 = player(2)
+player = players()
 screen = pygame.display.set_mode((SCREEN_HEIGHT, SCEEN_HEIGHT))
 pygame.display.set_caption("reversi")
 
@@ -33,8 +31,9 @@ while running:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1: # 左クリック 
-                player1.putStone(event.pos, game_board)
+                player.putStone(event.pos, game_board)
     screen.fill(GRAY)
+    game_board.judgErea()
     game_board.displaybord(screen)
     game_board.displaystone(screen)
     pygame.display.flip()
